@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Júlia Hendler — Portfólio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F7F9;
+  --sidebar-w: 300px;
+  --text: #1A1A1E;
+  --muted: #8A8A95;
+  --border: #E4E4EA;
+  --accent: #0071E3;
+  --green: #30D158;
+  --card-r: 14px;
+  --ease: all 0.45s cubic-bezier(0.16,1,0.3,1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+html { scroll-behavior:smooth; }
+body { font-family:'Sora',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; flex-direction:column; }
+
+/* ── HEADER ───────────────────────── */
+header {
+  position:sticky; top:0; z-index:100;
+  background:rgba(247,247,249,0.85); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 36px; height:60px;
+}
+.header-brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; }
+.dot { width:8px; height:8px; border-radius:50%; background:var(--green); flex-shrink:0; }
+.header-nav { display:flex; gap:28px; }
+.header-nav a { text-decoration:none; color:var(--muted); font-size:13px; font-weight:500; transition:color .2s; }
+.header-nav a:hover { color:var(--text); }
+.header-cta { background:var(--text); color:#fff; text-decoration:none; font-size:13px; font-weight:600; padding:9px 20px; border-radius:40px; transition:var(--ease); }
+.header-cta:hover { background:#333; }
+
+/* ── LAYOUT ───────────────────────── */
+.layout { display:flex; flex:1; }
+
+/* ── SIDEBAR ──────────────────────── */
+aside {
+  width:var(--sidebar-w); flex-shrink:0;
+  position:sticky; top:60px; height:calc(100vh - 60px);
+  overflow-y:auto; border-right:1px solid var(--border);
+  padding:40px 32px; display:flex; flex-direction:column; gap:32px;
+}
+.avatar {
+  width:80px; height:80px; border-radius:50%;
+  background:#E2E2EA; overflow:hidden; flex-shrink:0;
+}
+.avatar img { width:100%; height:100%; object-fit:cover; }
+.sidebar-name { font-size:20px; font-weight:700; letter-spacing:-.02em; }
+.sidebar-role { font-size:13px; color:var(--muted); margin-top:4px; line-height:1.5; }
+.sidebar-divider { border:none; border-top:1px solid var(--border); }
+.sidebar-bio { font-size:13px; color:var(--muted); line-height:1.7; }
+.sidebar-label { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+.sidebar-links { display:flex; flex-direction:column; gap:8px; }
+.sidebar-links a { font-size:13px; font-weight:500; color:var(--text); text-decoration:none; display:flex; align-items:center; gap:8px; opacity:.75; transition:opacity .2s; }
+.sidebar-links a:hover { opacity:1; }
+.sidebar-links a svg { width:15px; height:15px; flex-shrink:0; }
+.stat-row { display:flex; gap:20px; }
+.stat { display:flex; flex-direction:column; }
+.stat-n { font-size:22px; font-weight:700; letter-spacing:-.03em; }
+.stat-l { font-size:11px; color:var(--muted); margin-top:2px; }
+.open-badge { display:inline-flex; align-items:center; gap:6px; margin-top:10px; font-size:11px; font-weight:700; letter-spacing:.05em; color:#1a7a3a; background:#e6f7ec; border:1px solid #b2e8c2; padding:5px 12px; border-radius:40px; }
+
+/* ── MAIN ─────────────────────────── */
+main { flex:1; padding:40px; overflow:hidden; }
+
+.main-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; flex-wrap:wrap; gap:16px; }
+.main-header h1 { font-size:22px; font-weight:700; letter-spacing:-.02em; }
+.filter-row { display:flex; gap:8px; flex-wrap:wrap; }
+.filter-btn {
+  font-family:'Sora',sans-serif; font-size:12px; font-weight:600;
+  padding:7px 16px; border-radius:40px; border:1px solid var(--border);
+  background:#fff; color:var(--muted); cursor:pointer; transition:var(--ease);
+}
+.filter-btn.active, .filter-btn:hover { background:var(--text); color:#fff; border-color:var(--text); }
+
+/* ── PROJECT GRID ─────────────────── */
+.project-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:20px;
+}
+.proj-card {
+  background:#fff; border-radius:var(--card-r); border:1px solid var(--border);
+  overflow:hidden; cursor:pointer; transition:var(--ease);
+  display:flex; flex-direction:column;
+}
+.proj-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,.07); }
+.proj-thumb {
+  height:200px; background:#E2E2EA; overflow:hidden; position:relative; flex-shrink:0;
+}
+.proj-thumb img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; transition:transform .6s cubic-bezier(0.16,1,0.3,1); }
+.proj-card:hover .proj-thumb img { transform:scale(1.04); }
+.proj-thumb-placeholder { width:100%; height:100%; background:linear-gradient(135deg,#E2E2EA 0%,#CCCCD8 100%); display:flex; align-items:center; justify-content:center; }
+.proj-thumb-placeholder span { font-size:32px; opacity:.35; }
+.proj-info { padding:18px 20px 20px; }
+.proj-tag-pill { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; display:block; }
+.proj-info h3 { font-size:15px; font-weight:700; letter-spacing:-.01em; }
+.proj-info p { font-size:12px; color:var(--muted); margin-top:4px; line-height:1.55; }
+
+/* ── MODAL ────────────────────────── */
+.modal-overlay {
+  position:fixed; inset:0; z-index:500;
+  background:rgba(10,10,15,.6); backdrop-filter:blur(8px);
+  display:flex; align-items:center; justify-content:center; padding:24px;
+  opacity:0; pointer-events:none; transition:opacity .35s ease;
+}
+.modal-overlay.open { opacity:1; pointer-events:all; }
+.modal {
+  background:#fff; border-radius:22px; max-width:780px; width:100%;
+  overflow:hidden; transform:translateY(24px) scale(.97);
+  transition:transform .45s cubic-bezier(0.16,1,0.3,1);
+  box-shadow:0 32px 80px rgba(0,0,0,.2);
+}
+.modal-overlay.open .modal { transform:translateY(0) scale(1); }
+.modal-img { height:380px; background:#E2E2EA; overflow-y:auto; }
+.modal-img img { width:100%; height:auto; display:block; }
+.modal-img-placeholder { width:100%; height:100%; background:linear-gradient(135deg,#E2E2EA 0%,#CCCCD8 100%); display:flex; align-items:center; justify-content:center; }
+.modal-img-placeholder span { font-size:56px; opacity:.3; }
+.modal-body { padding:28px 32px 32px; }
+.modal-tag { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.modal-title { font-size:24px; font-weight:700; letter-spacing:-.02em; margin:6px 0 10px; }
+.modal-desc { font-size:14px; color:var(--muted); line-height:1.7; margin-bottom:24px; }
+.modal-actions { display:flex; align-items:center; gap:12px; }
+.btn-visit { background:var(--text); color:#fff; text-decoration:none; font-size:14px; font-weight:700; padding:13px 28px; border-radius:40px; transition:var(--ease); }
+.btn-visit:hover { background:#333; }
+.btn-close { background:none; border:1px solid var(--border); font-family:'Sora',sans-serif; font-size:14px; font-weight:600; color:var(--muted); padding:13px 22px; border-radius:40px; cursor:pointer; transition:var(--ease); }
+.btn-close:hover { border-color:var(--text); color:var(--text); }
+
+/* ── EMPTY STATE ──────────────────── */
+.empty { padding:80px 20px; text-align:center; color:var(--muted); font-size:14px; }
+.empty span { display:block; font-size:36px; margin-bottom:12px; }
+
+/* ── RESPONSIVE ───────────────────── */
+@media(max-width:860px){
+  aside { display:none; }
+  main { padding:24px; }
+  .modal-img { height:220px; }
+}
+@media(max-width:560px){
+  header { padding:0 20px; }
+  .header-nav { display:none; }
+  main { padding:16px; }
+  .project-grid { grid-template-columns:1fr; }
+  .modal-body { padding:20px 20px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-brand">
+    <div class="dot"></div>
+    Júlia Hendler
+  </div>
+  <nav class="header-nav">
+    <a href="#projetos">Projetos</a>
+    <a href="https://wa.me/SEUNUMEROTELEFONE" target="_blank">Contato</a>
+  </nav>
+  <a href="https://wa.me/SEUNUMEROTELEFONE" target="_blank" class="header-cta">Iniciar projeto →</a>
+</header>
+
+<div class="layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside>
+    <div>
+      <div class="avatar">
+        <!-- <img src="sua-foto.jpg" alt="Júlia Hendler"> -->
+      </div>
+      <div class="sidebar-name" style="margin-top:16px">Júlia Hendler</div>
+      <div class="sidebar-role">Web Designer & Dev Landing Pages Premium</div>
+      <div class="open-badge">✦ Disponível para freelances</div>
+    </div>
+
+    <hr class="sidebar-divider">
+
+    <p class="sidebar-bio">
+      Estética intencional, sites intuitivos e foco em transformar visitantes em clientes.
+    </p>
+
+    <div>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-n" id="total-projects">0</span>
+          <span class="stat-l">Projetos</span>
+        </div>
+        <div class="stat">
+          <span class="stat-n">5 dias</span>
+          <span class="stat-l">Prazo médio</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="sidebar-divider">
+
+    <div>
+      <div class="sidebar-label">Contato</div>
+      <div class="sidebar-links">
+        <a href="https://wa.me/SEUNUMEROTELEFONE" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.555 4.118 1.528 5.847L.057 23.882l6.198-1.625A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-4.964-1.344l-.356-.211-3.68.965.981-3.584-.231-.368A9.793 9.793 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
+          WhatsApp
+        </a>
+        <a href="https://instagram.com/SEUINSTAGRAM" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main id="projetos">
+    <div class="main-header">
+      <h1>Projetos</h1>
+      <div class="filter-row" id="filters"></div>
+    </div>
+    <div class="project-grid" id="grid"></div>
+  </main>
+
+</div>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-img" id="modal-img"></div>
+    <div class="modal-body">
+      <div class="modal-tag" id="modal-tag"></div>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-actions">
+        <a href="#" target="_blank" class="btn-visit" id="modal-link">Visitar site →</a>
+        <button class="btn-close" id="modal-close">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================
+   ✏️  SEUS PROJETOS — edite aqui!
+
+   Campos:
+     title  → nome do projeto
+     tag    → categoria (usada também nos filtros)
+     desc   → descrição para o modal
+     img    → caminho da imagem (deixe "" para placeholder)
+     url    → link do site do cliente ("#" se não tiver ainda)
+
+   Para ADICIONAR: copie um bloco {} e cole.
+   Para REMOVER:   apague o bloco.
+   Os filtros são gerados automaticamente pelas tags.
+===================================================== */
+const projetos = [
+  {
+    title: "Brevant Sementes",
+    tag: "Agro",
+    desc: "Landing page para representante comercial de sementes Brevant. O desafio era transmitir credibilidade técnica no agronegócio e gerar contato direto com produtores rurais. O resultado foi uma página focada em conversão via WhatsApp, com apresentação dos híbridos, depoimentos e atendimento personalizado.",
+    img: "",
+    url: "https://brevantsementes.vercel.app/"
+  },
+  {
+    title: "Projeto 02",
+    tag: "Landing Page",
+    desc: "Descrição do projeto, o desafio do cliente e o resultado alcançado com a solução entregue.",
+    img: "",
+    url: "#"
+  },
+  {
+    title: "Projeto 03",
+    tag: "Landing Page",
+    desc: "Descrição do projeto, o desafio do cliente e o resultado alcançado com a solução entregue.",
+    img: "",
+    url: "#"
+  },
+  {
+    title: "Projeto 04",
+    tag: "Landing Page",
+    desc: "Descrição do projeto, o desafio do cliente e o resultado alcançado com a solução entregue.",
+    img: "",
+    url: "#"
+  },
+  {
+    title: "Projeto 05",
+    tag: "Landing Page",
+    desc: "Descrição do projeto, o desafio do cliente e o resultado alcançado com a solução entregue.",
+    img: "",
+    url: "#"
+  },
+  {
+    title: "Projeto 06",
+    tag: "Institucional",
+    desc: "Descrição do projeto, o desafio do cliente e o resultado alcançado com a solução entregue.",
+    img: "",
+    url: "#"
+  }
+];
+
+/* ── Renderização ── */
+const grid = document.getElementById("grid");
+const filtersEl = document.getElementById("filters");
+const totalEl = document.getElementById("total-projects");
+totalEl.textContent = projetos.length;
+
+// Filtros
+const tags = ["Todos", ...new Set(projetos.map(p => p.tag))];
+let activeTag = "Todos";
+
+tags.forEach(tag => {
+  const btn = document.createElement("button");
+  btn.className = "filter-btn" + (tag === "Todos" ? " active" : "");
+  btn.textContent = tag;
+  btn.addEventListener("click", () => {
+    activeTag = tag;
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderGrid();
+  });
+  filtersEl.appendChild(btn);
+});
+
+function renderGrid() {
+  grid.innerHTML = "";
+  const filtered = activeTag === "Todos" ? projetos : projetos.filter(p => p.tag === activeTag);
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty"><span>🗂️</span>Nenhum projeto nesta categoria ainda.</div>`;
+    return;
+  }
+  filtered.forEach((p, i) => {
+    const card = document.createElement("div");
+    card.className = "proj-card";
+    card.innerHTML = `
+      <div class="proj-thumb">
+        ${p.img
+          ? `<img src="${p.img}" alt="${p.title}" loading="lazy">`
+          : `<div class="proj-thumb-placeholder"><span>🖥️</span></div>`}
+      </div>
+      <div class="proj-info">
+        <span class="proj-tag-pill">${p.tag}</span>
+        <h3>${p.title}</h3>
+        <p>${p.desc.length > 80 ? p.desc.slice(0,80)+"…" : p.desc}</p>
+      </div>
+    `;
+    card.addEventListener("click", () => openModal(p));
+    grid.appendChild(card);
+  });
+}
+
+// Modal
+const overlay = document.getElementById("modal");
+const modalImg = document.getElementById("modal-img");
+const modalTag = document.getElementById("modal-tag");
+const modalTitle = document.getElementById("modal-title");
+const modalDesc = document.getElementById("modal-desc");
+const modalLink = document.getElementById("modal-link");
+
+function openModal(p) {
+  modalImg.innerHTML = p.img
+    ? `<img src="${p.img}" alt="${p.title}">`
+    : `<div class="modal-img-placeholder"><span>🖥️</span></div>`;
+  modalTag.textContent = p.tag;
+  modalTitle.textContent = p.title;
+  modalDesc.textContent = p.desc;
+  modalLink.href = p.url;
+  modalLink.style.display = p.url === "#" ? "none" : "inline-block";
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  overlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("modal-close").addEventListener("click", closeModal);
+overlay.addEventListener("click", e => { if (e.target === overlay) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+renderGrid();
+</script>
+</body>
+</html>
